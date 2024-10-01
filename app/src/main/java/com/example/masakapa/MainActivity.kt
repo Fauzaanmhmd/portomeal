@@ -63,6 +63,9 @@ fun RootApp(
                 MealCategoryScreen(
                     onClick = {
                         navController.navigate(Screen.MealList.createRoute(it))
+                    },
+                    onNavigateToMealSearch = {
+                        navController.navigate(Screen.MealSearch.route)
                     }
                 )
             }

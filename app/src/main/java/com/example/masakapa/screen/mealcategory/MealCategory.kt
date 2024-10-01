@@ -46,6 +46,7 @@ import com.plcoding.typesafecomposenavigation.R
 @Composable
 fun MealCategoryScreen(
     onClick: (strCategory: String) -> Unit,
+    onNavigateToMealSearch: () -> Unit,
     viewModel: MealViewModel = hiltViewModel()
 ) {
 
@@ -141,6 +142,7 @@ fun MealCategoryScreen(
                 .padding(32.dp)
                 .background(Color.LightGray, shape = CircleShape)
                 .padding(16.dp)
+                .clickable { onNavigateToMealSearch()}
         )
     }
 }
