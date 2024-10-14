@@ -17,7 +17,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.masakapa.navigation.Screen
+import com.example.masakapa.screen.addnote.AddNote
 import com.example.masakapa.screen.favorite.MealFavoriteScreen
+import com.example.masakapa.screen.listnote.ListNote
 import com.example.masakapa.screen.mealcategory.MealCategoryScreen
 import com.example.masakapa.screen.mealdetail.MealDetail
 import com.example.masakapa.screen.meallist.MealListScreen
@@ -51,9 +53,21 @@ fun RootApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.MealCategory.route,
+            startDestination = Screen.NoteList.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+
+            composable(Screen.NoteList.route) {
+                ListNote(onNavigateToAddNote = {
+                    navController.navigate(Screen.AddNote.route)
+                })
+            }
+
+            composable(Screen.AddNote.route) {
+                AddNote(onNavigateToNoteList = {
+                    navController.navigate(Screen.NoteList.route)
+                })
+            }
 
             composable(Screen.MealFavorite.route) {
                 MealFavoriteScreen()

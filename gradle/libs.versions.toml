@@ -1,4 +1,5 @@
 [versions]
+activityKtx = "1.9.2"
 android = "8.0.2"
 agp = "8.4.0"
 kotlin = "1.9.0"
@@ -10,11 +11,18 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.9.0"
 composeBom = "2023.08.00"
 composeNavigation = "2.8.0-alpha08"
+lifecycleViewmodelKtxVersion = "2.8.6"
 serialization = "1.6.3"
 hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
+roomVersion = "2.6.1"
+foundationLayoutAndroid = "1.6.0"
+runtimeLivedata = "1.7.3"
+androidXLifecycle = "2.6.1"
+
 
 [libraries]
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -29,6 +37,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
@@ -37,6 +46,14 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version = "2.2.0" 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-room = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidXLifecycle" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
