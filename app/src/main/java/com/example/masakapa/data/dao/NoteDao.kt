@@ -17,6 +17,10 @@ interface NoteDao {
     @Query("SELECT * FROM notes")
     fun getAll(): LiveData<List<Note>>
 
+
+    @Query("SELECT * FROM notes WHERE id = :id LIMIT 1")
+    fun getNoteById(id: Int): LiveData<Note?>
+
     @Update
     suspend fun update(note: Note)
 

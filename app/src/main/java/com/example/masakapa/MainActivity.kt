@@ -59,14 +59,16 @@ fun RootApp(
 
             composable(Screen.NoteList.route) {
                 ListNote(onNavigateToAddNote = {
-                    navController.navigate(Screen.AddNote.route)
+                    navController.navigate(Screen.AddNote.createRoute(it!!))
                 })
             }
 
             composable(Screen.AddNote.route) {
-                AddNote(onNavigateToNoteList = {
-                    navController.navigate(Screen.NoteList.route)
-                })
+                AddNote(
+                    noteId = it.arguments?.getString("params")?.toInt(),
+                    onNavigateToNoteList = {
+                        navController.navigate(Screen.NoteList.route)
+                    })
             }
 
             composable(Screen.MealFavorite.route) {

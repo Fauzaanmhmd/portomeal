@@ -19,6 +19,10 @@ sealed class Screen(val route: String) {
     }
 
     data object MealSearch: Screen("mealSearch")
-    data object AddNote: Screen("addNote")
+    data object AddNote: Screen("addNote/{params}") {
+        fun createRoute(params: Int) : String {
+            return "addNote/$params"
+        }
+    }
 
 }

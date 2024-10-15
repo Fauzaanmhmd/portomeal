@@ -26,4 +26,6 @@ class NoteViewModel @Inject constructor (val noteRepository: NoteRepository): Vi
         noteRepository.update(note)
     }
 
+    fun getNoteById(id: Int) = noteRepository.getNoteById(id)
+
 }

@@ -1,6 +1,5 @@
 package com.example.masakapa.screen.listnote
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,45 +29,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
-import com.example.masakapa.data.AppDataBase
 import com.example.masakapa.data.model.Note
-import com.example.masakapa.repository.NoteRepository
 import com.example.masakapa.viewmodel.NoteViewModel
-import com.example.masakapa.viewmodel.NoteViewModelFactory
 import com.plcoding.typesafecomposenavigation.R
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListNote(onNavigateToAddNote: () -> Unit) {
-
-    //sebelum pake hilt
-
-//    val context = LocalContext.current
-//
-//    val database = AppDataBase.getInstance(context)
+fun ListNote(onNavigateToAddNote: (Int?) -> Unit) {
     val noteViewModels: NoteViewModel = hiltViewModel()
-//    val noteRepository = NoteRepository(database)
-
-//    val noteViewModel: NoteViewModel = ViewModelProvider(
-//        LocalViewModelStoreOwner.current!!,
-//        NoteViewModelFactory(noteRepository)
-//    )[NoteViewModel::class.java]
-
-
-    val notes by noteViewModels.getAll().observeAsState(initial = emptyList())
+    val notes by noteViewModels.getAll().observeAsState(emptyList())
     var showDialog by remember { mutableStateOf(false) }
     var selectedNote by remember { mutableStateOf<Note?>(null) }
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomEnd
@@ -76,10 +55,10 @@ fun ListNote(onNavigateToAddNote: () -> Unit) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "coba")
+            Text(text = "Learning")
 
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2), // You can change the number of columns as needed
+                columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.padding(16.dp)
@@ -93,7 +72,6 @@ fun ListNote(onNavigateToAddNote: () -> Unit) {
                             .combinedClickable(
                                 onClick = { /* Single Click Action */ },
                                 onLongClick = {
-                                    Log.d("coba", "anjay")
                                     selectedNote = data
                                     showDialog = true
                                 }
@@ -124,37 +102,35 @@ fun ListNote(onNavigateToAddNote: () -> Unit) {
                         }
                     }
 
+                    // Dialog untuk Edit dan Delete
+                    if (showDialog && selectedNote != null) {
+                        AlertDialog(
+                            onDismissRequest = { showDialog = false },
+                            title = { Text("Opsi") },
+                            text = { Text("Pilih tindakan untuk catatan ini") },
+                            confirmButton = {
+                                TextButton(onClick = {
+                                    // Aksi Edit
+                                    data.id?.let { onNavigateToAddNote(it) }
+                                    showDialog = false
+                                }) {
+                                    Text("Edit")
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = {
+                                    // Aksi Delete
+                                    noteViewModels.delete(selectedNote!!)
+                                    showDialog = false
+                                }) {
+                                    Text("Delete")
+                                }
+                            }
+                        )
+                    }
+
                 }
             }
-
-            // Dialog untuk Edit dan Delete
-            if (showDialog && selectedNote != null) {
-                AlertDialog(
-                    onDismissRequest = { showDialog = false },
-                    title = { Text("Opsi") },
-                    text = { Text("Pilih tindakan untuk catatan ini") },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            // Aksi Edit
-                            onNavigateToAddNote()  // Navigasi ke halaman add/edit
-                            showDialog = false
-                        }) {
-                            Text("Edit")
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = {
-                            // Aksi Delete
-                            noteViewModels.delete(selectedNote!!)
-                            showDialog = false
-                        }) {
-                            Text("Delete")
-                        }
-                    }
-                )
-            }
-
-
         }
         Image(
             painter = painterResource(id = R.drawable.ic_search_24),
@@ -162,13 +138,8 @@ fun ListNote(onNavigateToAddNote: () -> Unit) {
             modifier = Modifier
                 .padding(32.dp)
                 .background(Color.LightGray, shape = CircleShape)
-                .clickable { onNavigateToAddNote() }
+                .clickable { onNavigateToAddNote(null) }
+                .padding(8.dp)
         )
     }
-}
-
-@Preview
-@Composable
-fun NoteListPreview() {
-    ListNote({})
 }
