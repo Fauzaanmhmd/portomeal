@@ -56,6 +56,8 @@ fun MealListScreen(
         viewModel.getMealList(strCategory)
     }
 
+    // ada lagi namanya rememberCoroutineScope(), ini digunakan ketika ada action, seperti onClick
+
     Column {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             TextField(

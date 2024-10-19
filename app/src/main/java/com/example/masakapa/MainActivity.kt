@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.masakapa.composeswipetoreveal.ContactScreen
 import com.example.masakapa.navigation.Screen
 import com.example.masakapa.screen.addnote.AddNote
 import com.example.masakapa.screen.favorite.MealFavoriteScreen
@@ -53,17 +54,27 @@ fun RootApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.NoteList.route,
+            startDestination = Screen.ContactUI.route,
             modifier = Modifier.padding(innerPadding)
         ) {
 
             composable(Screen.NoteList.route) {
-                ListNote(onNavigateToAddNote = {
-                    navController.navigate(Screen.AddNote.createRoute(it!!))
-                })
+                ListNote(
+                    onNavigateToAddNote = {
+                        navController.navigate(Screen.EditNote.createRoute(it!!))
+                    },
+                    onClick = { navController.navigate(Screen.AddNote.route) }
+                )
             }
 
             composable(Screen.AddNote.route) {
+                AddNote(
+                    noteId = 0,
+                    onNavigateToNoteList = { navController.navigate(Screen.NoteList.route) }
+                )
+            }
+
+            composable(Screen.EditNote.route) {
                 AddNote(
                     noteId = it.arguments?.getString("params")?.toInt(),
                     onNavigateToNoteList = {
@@ -108,6 +119,10 @@ fun RootApp(
                 MealSearchScreen(onClick = {
                     navController.navigate(Screen.MealDetail.createRoute(it))
                 })
+            }
+
+            composable(Screen.ContactUI.route) {
+                ContactScreen()
             }
         }
     }
