@@ -42,7 +42,7 @@ import com.plcoding.typesafecomposenavigation.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListNote(onNavigateToAddNote: (Int?) -> Unit) {
+fun ListNote(onNavigateToAddNote: (Int?) -> Unit, onClick: () -> Unit) {
     val noteViewModels: NoteViewModel = hiltViewModel()
     val notes by noteViewModels.getAll().observeAsState(emptyList())
     var showDialog by remember { mutableStateOf(false) }
@@ -55,7 +55,7 @@ fun ListNote(onNavigateToAddNote: (Int?) -> Unit) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = "Learning")
+            Text(text = "Notes List")
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -138,7 +138,7 @@ fun ListNote(onNavigateToAddNote: (Int?) -> Unit) {
             modifier = Modifier
                 .padding(32.dp)
                 .background(Color.LightGray, shape = CircleShape)
-                .clickable { onNavigateToAddNote(null) }
+                .clickable { onClick() }
                 .padding(8.dp)
         )
     }

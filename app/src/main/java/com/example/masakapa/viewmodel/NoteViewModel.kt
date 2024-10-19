@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NoteViewModel @Inject constructor (val noteRepository: NoteRepository): ViewModel() {
+class NoteViewModel @Inject constructor (private val noteRepository: NoteRepository): ViewModel() {
     fun getAll(): LiveData<List<Note>> = noteRepository.getAll()
 
     fun insert(note: Note) = viewModelScope.launch(Dispatchers.IO) {
