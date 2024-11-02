@@ -25,6 +25,7 @@ import com.example.masakapa.screen.mealcategory.MealCategoryScreen
 import com.example.masakapa.screen.mealdetail.MealDetail
 import com.example.masakapa.screen.meallist.MealListScreen
 import com.example.masakapa.screen.mealsearch.MealSearchScreen
+import com.example.masakapa.uploadfilewithprogressbar.UploadFileScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -54,7 +55,7 @@ fun RootApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.ContactUI.route,
+            startDestination = Screen.UploadFile.route,
             modifier = Modifier.padding(innerPadding)
         ) {
 
@@ -123,6 +124,9 @@ fun RootApp(
 
             composable(Screen.ContactUI.route) {
                 ContactScreen()
+            }
+            composable(Screen.UploadFile.route) {
+                UploadFileScreen()
             }
         }
     }

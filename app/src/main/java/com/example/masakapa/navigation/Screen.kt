@@ -27,5 +27,6 @@ sealed class Screen(val route: String) {
     }
 
     data object ContactUI: Screen("contactUi")
+    data object UploadFile: Screen("uploadFile")
 
 }
